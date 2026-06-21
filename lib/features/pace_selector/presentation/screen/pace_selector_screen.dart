@@ -38,16 +38,38 @@ class PaceSelectorScreen extends ConsumerWidget {
               const PaceSliderWidget(),
               const SizedBox(height: 16),
               Center(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(buttonColor),
-                    shadowColor: WidgetStateProperty.all(buttonColor),
-                    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 100, vertical: 15)),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeInOut,
+                  decoration: BoxDecoration(
+                    color: buttonColor,
+                    borderRadius: BorderRadius.circular(100),
+                    boxShadow: [
+                      BoxShadow(
+                        color: buttonColor.withValues(alpha: 0.4),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                  child: TextWidget(text: "Continue", color: Colors.black, size: 28),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 100,
+                        vertical: 15,
+                      ),
+                    ),
+                    child: TextWidget(
+                      text: "Continue",
+                      color: Colors.black,
+                      size: 28,
+                    ),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),

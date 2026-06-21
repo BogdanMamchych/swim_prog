@@ -61,11 +61,15 @@ class PaceSliderWidget extends ConsumerWidget {
                   final bool isSelected = currentSkill == skillItem;
 
                   return Positioned(
+                    key: ValueKey(
+                      skillItem.skill,
+                    ),
                     left: leftPosition,
                     child: FractionalTranslation(
                       translation: const Offset(-0.5, 0.0),
-                      child: Text(
-                        skillItem.skill,
+                      child: AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeInOut,
                         style: TextStyle(
                           color: isSelected ? skillItem.color : Colors.white24,
                           fontWeight: isSelected
@@ -73,6 +77,7 @@ class PaceSliderWidget extends ConsumerWidget {
                               : FontWeight.normal,
                           fontSize: 13,
                         ),
+                        child: Text(skillItem.skill),
                       ),
                     ),
                   );
@@ -132,8 +137,9 @@ class PaceSliderWidget extends ConsumerWidget {
                     left: leftPosition,
                     child: FractionalTranslation(
                       translation: Offset(translationX, 0.0),
-                      child: Text(
-                        _formatDuration(markValue),
+                      child: AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 250),
+                        child: Text(_formatDuration(markValue)),
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: isActive
