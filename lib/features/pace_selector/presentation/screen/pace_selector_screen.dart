@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swim_prog/features/pace_selector/data/providers/pace_providers.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_slider_widget.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_widget.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/text_widget.dart';
@@ -9,6 +10,7 @@ class PaceSelectorScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final buttonColor = ref.watch(currentSkillProvider).color;
     return Scaffold(
       backgroundColor: const Color(0xFF0A1128),
       body: SafeArea(
@@ -34,6 +36,18 @@ class PaceSelectorScreen extends ConsumerWidget {
               ),
               const PaceWidget(),
               const PaceSliderWidget(),
+              const SizedBox(height: 16),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(buttonColor),
+                    shadowColor: WidgetStateProperty.all(buttonColor),
+                    padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 100, vertical: 15)),
+                  ),
+                  child: TextWidget(text: "Continue", color: Colors.black, size: 28),
+                ),
+              )
             ],
           ),
         ),

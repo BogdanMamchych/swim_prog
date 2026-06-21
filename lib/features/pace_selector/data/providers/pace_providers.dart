@@ -38,6 +38,17 @@ final colorsProvider = Provider<List<Color>>((ref) {
   .toList();
 });
 
+final currentSkillProvider = Provider<SkillMark>((ref) {
+  final config = ref.watch(paceConfigProvider);
+  final skills = config.marks;
+  final pacePosition = ref.watch(paceProvider);
+
+  return skills.firstWhere(
+    (skill) => pacePosition >= skill.startTime && pacePosition < skill.endTime,
+    orElse: () => skills.last,
+  );
+});
+
 class PaceNotifier extends Notifier<Duration> {
   @override
   Duration build() {
