@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:swim_prog/core/models/user.dart';
 
 class UserDetailScreen extends StatelessWidget {
@@ -14,6 +15,12 @@ class UserDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(user.name),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            context.go("/user_list");
+          },
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),

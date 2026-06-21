@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:swim_prog/core/repositories/user_repository.dart';
 import 'package:swim_prog/features/user_lisf/presentation/widgets/user_search_widget.dart';
 import 'package:swim_prog/features/user_lisf/presentation/widgets/user_tile_widget.dart';
@@ -15,12 +16,16 @@ class UserListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('User List'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            context.go("/pace_selector");
+          },
+        ),
       ),
       body: usersAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(
-          child: Text('Error: $error'),
-        ),
+        error: (error, stack) => Center(child: Text('Error: $error')),
         data: (users) {
           final filteredUsers = users.where((user) {
             return user.name.toLowerCase().contains(query.toLowerCase());
@@ -43,7 +48,9 @@ class UserListScreen extends ConsumerWidget {
                           separatorBuilder: (_, __) => const Divider(height: 1),
                           itemBuilder: (context, index) {
                             final user = filteredUsers[index];
-                            return UserTileWidget(user: user, onTap: () {});
+                            return UserTileWidget(user: user, onTap: () {
+                              context.go("/user_detail", extra: user);
+                            });
                           },
                         ),
                 ),

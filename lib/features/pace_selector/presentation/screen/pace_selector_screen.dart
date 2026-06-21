@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:swim_prog/features/pace_selector/data/providers/pace_providers.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_slider_widget.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_widget.dart';
@@ -53,7 +54,9 @@ class PaceSelectorScreen extends ConsumerWidget {
                     ],
                   ),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go("/user_list");
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
