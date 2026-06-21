@@ -1,37 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swim_prog/features/pace_selector/data/providers/pace_providers.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_value_widget.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/text_widget.dart';
 
-class PaceWidget extends StatefulWidget {
-  const PaceWidget({Key? key}) : super(key: key);
+class PaceWidget extends ConsumerStatefulWidget {
+  const PaceWidget({super.key});
 
   @override
-  State<PaceWidget> createState() => _PaceWidgetState();
+  ConsumerState<PaceWidget> createState() => _PaceWidgetState();
 }
 
-class _PaceWidgetState extends State<PaceWidget> {
-  late int minutes = 4;
-  late int seconds = 0;
-  final TextEditingController _minutesController = TextEditingController();
-  final TextEditingController _secondsController = TextEditingController();
+class _PaceWidgetState extends ConsumerState<PaceWidget> {
+  late final TextEditingController _minutesController;
+  late final TextEditingController _secondsController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final duration = ref.read(paceProvider);
+
+    _minutesController = TextEditingController(
+      text: duration.inMinutes.toString(),
+    );
+
+    _secondsController = TextEditingController(
+      text: (duration.inSeconds % 60).toString().padLeft(2, '0'),
+    );
+  }
+
+  @override
+  void dispose() {
+    _minutesController.dispose();
+    _secondsController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final duration = ref.watch(paceProvider);
+
+    final minutes = duration.inMinutes;
+    final seconds = duration.inSeconds % 60;
+
+    _minutesController.text = minutes.toString();
+    _secondsController.text = seconds.toString().padLeft(2, '0');
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         PaceValueWidget(
-          value: "$minutes",
-          onIncrement: () => setState(() {
-            if (minutes < 9) minutes++;
-          }),
-          onDecrement: () => setState(() {
-            if (minutes > 0) minutes--;
-          }),
+          controller: _minutesController,
+          onIncrement: () {
+            ref.read(paceProvider.notifier).incrementMinutes();
+          },
+          onDecrement: () {
+            ref.read(paceProvider.notifier).decrementMinutes();
+          },
+          onChanged: (value) {
+            final parsed = int.tryParse(value);
+
+            if (parsed != null) {
+              ref.read(paceProvider.notifier).setDuration(
+                Duration(
+                  minutes: parsed,
+                  seconds: seconds,
+                ),
+              );
+            }
+          },
         ),
 
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.0),
+          padding: EdgeInsets.symmetric(horizontal: 12),
           child: TextWidget(
             text: ":",
             color: Color(0xFF00A86B),
@@ -40,25 +82,26 @@ class _PaceWidgetState extends State<PaceWidget> {
           ),
         ),
 
-        // Вторая колонка — Секунды
         PaceValueWidget(
-          value: seconds.toString().padLeft(2, '0'),
-          onIncrement: () => setState(() {
-            if (seconds < 59) {
-              seconds += 1;
-            } else {
-              seconds = 0;
-              minutes += 1;
+          controller: _secondsController,
+          onIncrement: () {
+            ref.read(paceProvider.notifier).incrementSeconds();
+          },
+          onDecrement: () {
+            ref.read(paceProvider.notifier).decrementSeconds();
+          },
+          onChanged: (value) {
+            final parsed = int.tryParse(value);
+
+            if (parsed != null) {
+              ref.read(paceProvider.notifier).setDuration(
+                Duration(
+                  minutes: minutes,
+                  seconds: parsed,
+                ),
+              );
             }
-          }),
-          onDecrement: () => setState(() {
-            if (seconds > 0) {
-              seconds -= 1;
-            } else {
-              seconds = 59;
-              minutes -= 1;
-            }
-          }),
+          },
         ),
       ],
     );

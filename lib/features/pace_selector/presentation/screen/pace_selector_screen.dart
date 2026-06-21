@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_slider_widget.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_widget.dart';
+import 'package:swim_prog/features/pace_selector/presentation/widgets/swimming_level_marks_widget.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/text_widget.dart';
 
-class PaceSelectorScreen extends StatefulWidget {
+class PaceSelectorScreen extends ConsumerWidget {
   const PaceSelectorScreen({super.key});
 
   @override
-  _PaceSelectorScreenState createState() => _PaceSelectorScreenState();
-}
-
-class _PaceSelectorScreenState extends State<PaceSelectorScreen> {
-  final int minutes = 0;
-  final int seconds = 0;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: const Color(0xFF0A1128),
       body: SafeArea(
@@ -39,17 +33,9 @@ class _PaceSelectorScreenState extends State<PaceSelectorScreen> {
                 fontWeight: FontWeight.w400,
                 lineHeight: 1.4,
               ),
-              PaceWidget(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('Elite'),
-                  Text('Advanced'),
-                  Text('Intermediate'),
-                  Text('Beginner'),
-                ],
-              ),
-              PaceSliderWidget(),
+              const PaceWidget(),
+              SwimmingLevelMarksWidget(),
+              const PaceSliderWidget(),
             ],
           ),
         ),
