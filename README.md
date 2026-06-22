@@ -64,3 +64,7 @@ With more time, I would improve the project in several ways:
 - - display visual feedback (colors / zones)
 - - simplify pace selection in the UI
 - The ranges are intentionally project-specific and not tied to official swimming federation standards.
+
+## Video explanation
+
+- link: https://www.loom.com/share/1c7a398cc59b467eb40605b606034850
