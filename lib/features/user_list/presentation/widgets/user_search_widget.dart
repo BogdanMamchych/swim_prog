@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swim_prog/core/providers/user_provider.dart';
+import 'package:swim_prog/core/repositories/user_repository.dart';
 
 class UserSearchWidget extends ConsumerWidget {
   const UserSearchWidget({super.key});

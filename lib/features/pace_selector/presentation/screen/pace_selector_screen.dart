@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swim_prog/core/providers/submit_pace_provider.dart';
 import 'package:swim_prog/features/pace_selector/data/providers/pace_providers.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_slider_widget.dart';
 import 'package:swim_prog/features/pace_selector/presentation/widgets/pace_widget.dart';
@@ -13,6 +14,23 @@ class PaceSelectorScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final buttonColor = ref.watch(currentSkillProvider).color;
     final theme = Theme.of(context);
+    final duration = ref.watch(paceProvider);
+    final submitState = ref.watch(submitPaceProvider);
+    final isLoading = submitState.isLoading;
+
+    ref.listen(submitPaceProvider, (previous, next) {
+      next.whenOrNull(
+        error: (error, stack) {
+          final message = ref
+              .read(submitPaceProvider.notifier)
+              .messageFor(error);
+
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(message)));
+        },
+      );
+    });
 
     return Scaffold(
       body: SafeArea(
@@ -55,7 +73,21 @@ class PaceSelectorScreen extends ConsumerWidget {
                     ],
                   ),
                   child: ElevatedButton(
-                    onPressed: () => context.go("/user_list"),
+                    onPressed: isLoading
+                        ? null
+                        : () async {
+                            final paceSeconds = duration.inSeconds.toDouble();
+
+                            await ref
+                                .read(submitPaceProvider.notifier)
+                                .submit(paceSeconds);
+
+                            final state = ref.read(submitPaceProvider);
+
+                            if (!state.hasError && context.mounted) {
+                              context.go("/user_list");
+                            }
+                          },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,

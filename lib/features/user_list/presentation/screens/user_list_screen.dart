@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swim_prog/features/user_lisf/presentation/widgets/user_search_widget.dart';
-import 'package:swim_prog/features/user_lisf/presentation/widgets/user_tile_widget.dart';
-import 'package:swim_prog/core/providers/user_provider.dart';
+import 'package:swim_prog/core/repositories/user_repository.dart';
+import 'package:swim_prog/features/user_list/presentation/widgets/user_search_widget.dart';
+import 'package:swim_prog/features/user_list/presentation/widgets/user_tile_widget.dart';
 
 class UserListScreen extends ConsumerWidget {
   const UserListScreen({super.key});

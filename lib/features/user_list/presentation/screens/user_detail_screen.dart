@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swim_prog/core/models/user.dart';
+import 'package:swim_prog/features/user_list/models/user.dart';
 
 class UserDetailScreen extends StatelessWidget {
   final User user;

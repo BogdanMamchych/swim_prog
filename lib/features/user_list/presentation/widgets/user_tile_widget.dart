@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swim_prog/core/models/user.dart';
+import 'package:swim_prog/features/user_list/models/user.dart';
 
 class UserTileWidget extends StatelessWidget {
   final User user;
