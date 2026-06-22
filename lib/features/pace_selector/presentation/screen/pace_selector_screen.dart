@@ -85,7 +85,7 @@ class PaceSelectorScreen extends ConsumerWidget {
                             final state = ref.read(submitPaceProvider);
 
                             if (!state.hasError && context.mounted) {
-                              context.go("/user_list");
+                              context.push("/user_list");
                             }
                           },
                     style: ElevatedButton.styleFrom(

@@ -16,7 +16,7 @@ class UserDetailScreen extends StatelessWidget {
         title: Text(user.name),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go("/user_list"),
+          onPressed: () => context.pop(),
         ),
       ),
       body: ListView(

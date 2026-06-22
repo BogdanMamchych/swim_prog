@@ -18,7 +18,7 @@ class UserListScreen extends ConsumerWidget {
         title: const Text('User List'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go("/pace_selector"),
+          onPressed: () => context.pop(),
         ),
       ),
       body: usersAsync.when(
@@ -48,7 +48,7 @@ class UserListScreen extends ConsumerWidget {
                             final user = filteredUsers[index];
                             return UserTileWidget(
                               user: user,
-                              onTap: () => context.go("/user_detail", extra: user),
+                              onTap: () => context.push("/user_detail", extra: user),
                             );
                           },
                         ),
