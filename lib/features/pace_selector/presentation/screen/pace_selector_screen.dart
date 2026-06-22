@@ -96,11 +96,15 @@ class PaceSelectorScreen extends ConsumerWidget {
                         vertical: 15,
                       ),
                     ),
-                    child: const TextWidget(
-                      text: "Continue",
-                      color: Colors.black,
-                      size: 28,
-                    ),
+                    child: isLoading
+                        ? const SizedBox(
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const TextWidget(
+                            text: "Continue",
+                            color: Colors.black,
+                            size: 28,
+                          ),
                   ),
                 ),
               ),
