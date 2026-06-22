@@ -43,3 +43,24 @@ With more time, I would improve the project in several ways:
 - The pace selector sends a POST request to `https://jsonplaceholder.typicode.com/posts`.
 - The user list is loaded from `https://jsonplaceholder.typicode.com/users`.
 - Swimmer level ranges are defined in the app logic.
+
+## Pace ranges (Skill levels)
+
+- In this project, swimming pace is divided into custom time ranges. These ranges are not universal standards — they are designed specifically for this application to help categorize performance levels and make pace selection more intuitive.
+- Each range represents a skill level based on the time required to complete a given distance interval.
+
+### Levels
+
+- Elite (40s – 1:15) - Represents top-level performance. Very fast pace with high efficiency and race-level speed.
+- Advanced (1:15 – 1:45) - Strong competitive swimmers with good technique and endurance.
+- Intermediate (1:45 – 2:30) - Recreational swimmers with stable technique and moderate endurance.
+- Beginner (2:30 – 3:20) - Entry-level swimmers focusing on basic endurance and technique development.
+
+### Notes 
+
+- These ranges are fully configurable in code via PaceConfig.
+- They are used to:
+- - classify user performance
+- - display visual feedback (colors / zones)
+- - simplify pace selection in the UI
+- The ranges are intentionally project-specific and not tied to official swimming federation standards.
