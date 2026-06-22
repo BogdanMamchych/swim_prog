@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swim_prog/core/repositories/user_repository.dart';
 import 'package:swim_prog/features/user_lisf/presentation/widgets/user_search_widget.dart';
 import 'package:swim_prog/features/user_lisf/presentation/widgets/user_tile_widget.dart';
+import 'package:swim_prog/core/providers/user_provider.dart';
 
 class UserListScreen extends ConsumerWidget {
   const UserListScreen({super.key});
@@ -17,10 +17,8 @@ class UserListScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('User List'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            context.go("/pace_selector");
-          },
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.go("/pace_selector"),
         ),
       ),
       body: usersAsync.when(
@@ -35,8 +33,8 @@ class UserListScreen extends ConsumerWidget {
             onRefresh: () => ref.read(usersProvider.notifier).refreshUsers(),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
+                const Padding(
+                  padding: EdgeInsets.all(16),
                   child: UserSearchWidget(),
                 ),
                 Expanded(
@@ -48,9 +46,10 @@ class UserListScreen extends ConsumerWidget {
                           separatorBuilder: (_, __) => const Divider(height: 1),
                           itemBuilder: (context, index) {
                             final user = filteredUsers[index];
-                            return UserTileWidget(user: user, onTap: () {
-                              context.go("/user_detail", extra: user);
-                            });
+                            return UserTileWidget(
+                              user: user,
+                              onTap: () => context.go("/user_detail", extra: user),
+                            );
                           },
                         ),
                 ),

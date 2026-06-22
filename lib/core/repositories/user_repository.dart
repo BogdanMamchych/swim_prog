@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:swim_prog/core/models/user.dart';
-import 'package:swim_prog/core/providers/users_provider.dart';
+import 'package:swim_prog/core/providers/dio_provider.dart';
 
 class UserRepository {
   final Dio dio;

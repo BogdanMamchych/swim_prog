@@ -5,21 +5,18 @@ import 'package:swim_prog/core/models/user.dart';
 class UserDetailScreen extends StatelessWidget {
   final User user;
 
-  const UserDetailScreen({
-    super.key,
-    required this.user,
-  });
+  const UserDetailScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(user.name),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            context.go("/user_list");
-          },
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.go("/user_list"),
         ),
       ),
       body: ListView(
@@ -27,7 +24,10 @@ class UserDetailScreen extends StatelessWidget {
         children: [
           Text(
             user.name,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 16),
 
@@ -45,7 +45,10 @@ class UserDetailScreen extends StatelessWidget {
             _InfoRow(label: 'Suite', value: user.address.suite),
             _InfoRow(label: 'City', value: user.address.city),
             _InfoRow(label: 'Zipcode', value: user.address.zipcode),
-            _InfoRow(label: 'Geo', value: '${user.address.geo.lat}, ${user.address.geo.lng}'),
+            _InfoRow(
+              label: 'Geo',
+              value: '${user.address.geo.lat}, ${user.address.geo.lng}',
+            ),
           ]),
 
           const SizedBox(height: 16),
@@ -60,7 +63,6 @@ class UserDetailScreen extends StatelessWidget {
     );
   }
 }
-
 class _InfoBlock extends StatelessWidget {
   final String title;
   final List<Widget> children;
@@ -72,6 +74,8 @@ class _InfoBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -80,7 +84,10 @@ class _InfoBlock extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             ...children,

@@ -12,8 +12,9 @@ class PaceSelectorScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final buttonColor = ref.watch(currentSkillProvider).color;
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF0A1128),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -22,7 +23,7 @@ class PaceSelectorScreen extends ConsumerWidget {
             children: [
               TextWidget(
                 text: "What's your fastest\n100m freestyle?",
-                color: Colors.white,
+                color: theme.colorScheme.onSurface,
                 size: 28,
                 fontWeight: FontWeight.bold,
                 lineHeight: 1.2,
@@ -30,7 +31,7 @@ class PaceSelectorScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               TextWidget(
                 text: "This helps us build a more accurate plan\nfor you.",
-                color: Colors.white.withValues(alpha: 0.6),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 size: 16,
                 fontWeight: FontWeight.w400,
                 lineHeight: 1.4,
@@ -54,18 +55,16 @@ class PaceSelectorScreen extends ConsumerWidget {
                     ],
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
-                      context.go("/user_list");
-                    },
+                    onPressed: () => context.go("/user_list"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 100,
                         vertical: 15,
                       ),
                     ),
-                    child: TextWidget(
+                    child: const TextWidget(
                       text: "Continue",
                       color: Colors.black,
                       size: 28,
